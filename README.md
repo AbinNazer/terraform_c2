@@ -30,6 +30,8 @@ terraform-ec2/
 aws configure
 AWS Access Key ID
 
+---
+
 AWS Secret Access Key
 
 Default region (e.g., us-east-1)
