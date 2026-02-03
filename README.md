@@ -74,20 +74,14 @@ terraform-ec2/
 ├── main.tf # EC2 instance resource
 ├── outputs.tf # Public IP output
 └── abinnazer.pem # Key pair (not committed to GitHub)
-Final Notes :
 
+## Final Notes :
 This project is a hands-on demonstration of IaC (Infrastructure as Code) using Terraform, showcasing:
-
 EC2 provisioning
-
 Key pair management
-
 Security Group configuration
-
 Dynamic AMI selection
-
 Terraform state management
-
 Perfect for learning DevOps automation workflows and building a portfolio-ready project.
 ---
 
