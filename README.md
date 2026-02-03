@@ -76,13 +76,49 @@ terraform-ec2/
 └── abinnazer.pem # Key pair (not committed to GitHub)
 
 ## Final Notes :
+Final Notes
+
 This project is a hands-on demonstration of IaC (Infrastructure as Code) using Terraform, showcasing:
+
 EC2 provisioning
+
 Key pair management
+
 Security Group configuration
+
 Dynamic AMI selection
+
 Terraform state management
-Perfect for learning DevOps automation workflows and building a portfolio-ready project.
+
+Final Notes
+
+This project is a hands-on demonstration of IaC (Infrastructure as Code) using Terraform, showcasing:
+
+EC2 provisioning
+
+Key pair management
+
+Security Group configuration
+
+Dynamic AMI selection
+
+Terraform state management
+
+### Final Notes
+
+This project is a hands-on demonstration of IaC (Infrastructure as Code) using Terraform, showcasing:
+
+EC2 provisioning
+
+Key pair management
+
+Security Group configuration
+
+Dynamic AMI selection
+
+Terraform state management
+
+Perfect for learning DevOps automation workflows and building a portfolio-ready project..
 ---
 
 ## How to Use
