@@ -1,90 +1,70 @@
-# Terraform EC2 Provisioning Project
+# Terraform EC2 Project – Abin Nazer
 
 ## Overview
-This project uses **Terraform** to provision an **AWS EC2 instance** with the following features:
+This project demonstrates how to **provision an AWS EC2 instance using Terraform**.  
+The goal was to automate cloud infrastructure creation, learn Terraform best practices, and deploy a simple server accessible via SSH.
 
-- Automatically selects the **latest Ubuntu 22.04 AMI** for the region.
-- Uses the **existing EC2 key pair** `abinnazer` for SSH access.
-- Deploys a **t3.micro instance** (AWS Free Tier eligible).
-- Outputs the **public IP** for SSH connection.
-- Easy to destroy all resources to avoid AWS charges.
+Key achievements in this project:
+
+- Provisioned an **EC2 instance** with Ubuntu 22.04.
+- Used a **pre-existing EC2 key pair (`abinnazer`)** for secure SSH access.
+- Configured Terraform to dynamically fetch the **latest AMI**, making the code region-independent.
+- Selected **t3.micro**, which is AWS **Free Tier eligible**.
+- Learned to handle **common Terraform & AWS errors** like IAM permissions, AMI availability, and SSH connectivity.
+- Outputted the **public IP** for easy SSH access.
+
+---
+
+## What I Did and How
+
+1. **Setup Terraform and AWS CLI**
+   - Installed Terraform and AWS CLI locally.
+   - Configured AWS CLI with IAM credentials.
+
+2. **Created Terraform files**
+   - `providers.tf` → Configured AWS provider with a region variable.
+   - `variables.tf` → Defined variables for region, key name, and instance type.
+   - `main.tf` → Created EC2 resource using a **dynamic data source for the latest Ubuntu 22.04 AMI**.
+   - `outputs.tf` → Outputted the public IP of the instance for SSH access.
+
+3. **Handled Key Pair**
+   - Used existing key pair `abinnazer`.
+   - Verified it existed in the correct AWS region.
+   - Ensured `.pem` file was stored locally with correct permissions (`chmod 400`).
+
+4. **Applied Terraform**
+   - Ran `terraform init` to initialize the project.
+   - Ran `terraform plan` to review changes.
+   - Ran `terraform apply` to provision EC2.
+
+5. **SSH Connection**
+   - Connected to the EC2 instance via SSH using:
+     ```bash
+     ssh -i abinnazer.pem ubuntu@<PUBLIC_IP>
+     ```
+   - Learned to troubleshoot connection issues like:
+     - Security group inbound rules (port 22 for SSH)
+     - Network timeouts
+     - Key file permissions
+
+6. **Free Tier Considerations**
+   - Changed instance type to `t3.micro` to stay within AWS Free Tier.
+   - Learned that some instance types or AMIs are region-specific.
+
+7. **Cleaning up**
+   - Used `terraform destroy` to terminate the instance.
+   - Optional: Remove local state to reset the project.
+
+---
+
+## Lessons Learned
+- Terraform is **idempotent**, meaning repeated `apply` runs make no unnecessary changes.
+- **IAM permissions** are crucial — without EC2 permissions, Terraform cannot create instances.
+- **Region-specific resources** (AMIs, key pairs) can cause common errors; using dynamic data sources avoids this.
+- Security best practices:
+  - Never commit `.pem` keys to GitHub.
+  - Limit SSH access in Security Groups to your IP.
 
 ---
 
 ## Folder Structure
-terraform-ec2/
-├── providers.tf # AWS provider configuration
-├── variables.tf # Variables for region, instance type, and key
-├── main.tf # EC2 instance resource definition
-├── outputs.tf # Outputs public IP of EC2
-└── abinnazer.pem # Your EC2 key pair
-
----
-
-## Prerequisites
-
-1. AWS account with **EC2 permissions** (`AmazonEC2FullAccess` policy recommended)
-2. AWS CLI installed and configured:
-
-```bash
-aws configure
-AWS Access Key ID
-
----
-
-AWS Secret Access Key
-
-Default region (e.g., us-east-1)
-
-Output format (json)
-
-Terraform installed (v1.5+ recommended)
-
-Key pair file abinnazer.pem available locally
-
-Quick Start
-1️⃣ Initialize Terraform
-bash
-Copy code
-terraform init
-2️⃣ Preview the plan
-bash
-Copy code
-terraform plan
-3️⃣ Apply Terraform
-bash
-Copy code
-terraform apply
-Type yes when prompted.
-This will create the EC2 instance.
-
-4️⃣ Output Public IP
-After apply completes, Terraform outputs the public IP:
-
-bash
-Copy code
-instance_public_ip = "YOUR_PUBLIC_IP"
-5️⃣ SSH into the EC2 instance
-bash
-Copy code
-chmod 400 abinnazer.pem
-ssh -i abinnazer.pem ubuntu@YOUR_PUBLIC_IP
-Destroy Resources
-To avoid AWS charges, destroy everything:
-
-bash
-Copy code
-terraform destroy
-Type yes when prompted.
-
-Optional: Remove Terraform local state if needed:
-
-bash
-Copy code
-rm -rf terraform.tfstate terraform.tfstate.backup .terraform/
-Notes
-Security: Do not commit .pem files to GitHub.
-
-Region-Specific: AMI IDs are dynamically retrieved, so the project works in any region.
-
-Free Tier: Use t3.micro instance type to remain within AWS Free Tier limits.
