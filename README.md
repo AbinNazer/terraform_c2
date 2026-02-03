@@ -68,3 +68,52 @@ Key achievements in this project:
 ---
 
 ## Folder Structure
+terraform-ec2/
+├── providers.tf # AWS provider configuration
+├── variables.tf # Input variables for region, key name, instance type
+├── main.tf # EC2 instance resource
+├── outputs.tf # Public IP output
+└── abinnazer.pem # Key pair (not committed to GitHub)
+Final Notes :
+
+This project is a hands-on demonstration of IaC (Infrastructure as Code) using Terraform, showcasing:
+
+EC2 provisioning
+
+Key pair management
+
+Security Group configuration
+
+Dynamic AMI selection
+
+Terraform state management
+
+Perfect for learning DevOps automation workflows and building a portfolio-ready project.
+---
+
+## How to Use
+1. Clone repository:
+```bash
+git clone <your-repo-url>
+cd terraform-ec2
+Initialize Terraform:
+
+terraform init
+
+
+Review plan:
+
+terraform plan
+
+
+Apply Terraform:
+
+terraform apply
+
+
+Type yes to confirm.
+
+SSH into EC2:
+
+chmod 400 abinnazer.pem
+ssh -i abinnazer.pem ubuntu@<PUBLIC_IP>
